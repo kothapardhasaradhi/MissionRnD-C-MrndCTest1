@@ -33,5 +33,84 @@ Difficulty : Medium
 
 int * find_sequences(int *arr, int len){
 	//Return final array which has 6indexes [AP1_S,AP1_E,AP2_S,AP2_E,GP1_S,GP2_E]
+	if (arr != NULL&&len > 0)
+	{
+		int i, j, k, p = 0, *ans;//Return final array which has 6indexes [AP1_S,AP1_E,AP2_S,AP2_E,GP1_S,GP2_E]
+		float f1, f2;
+		ans = (int*)malloc(6 * sizeof(int));
+		for (i = 0; i < len; i++)
+		{
+			if (arr[i + 1] - arr[i] == arr[i + 2] - arr[i + 1])
+			{
+				ans[p++] = i;
+				for (j = i + 1; j < len; j++)
+				{
+					if (j + 2 >= len)
+					{
+						ans[p++] = len - 1;
+						break;
+					}
+					else
+					if (arr[j + 1] - arr[j] != arr[j + 2] - arr[j + 1])
+					{
+						ans[p++] = j + 1;
+						break;
+					}
+				}
+				break;
+			}
+
+		}
+		for (i = ans[p - 1]; i < len; i++)
+		{
+			if (arr[i + 1] - arr[i] == arr[i + 2] - arr[i + 1])
+			{
+				ans[p++] = i;
+				for (j = i + 1; j < len; j++)
+				{
+					if (j + 2 >= len)
+					{
+						ans[p++] = len - 1;
+						break;
+					}
+					else
+					if (arr[j + 1] - arr[j] != arr[j + 2] - arr[j + 1])
+					{
+						ans[p++] = j + 1;
+						break;
+					}
+				}
+				break;
+			}
+
+		}
+		for (i = 0; i < len; i++)
+		{
+			f1 = ((float)arr[i + 1] / (float)arr[i]);
+			f2 = ((float)arr[i + 2] / (float)arr[i + 1]);
+			if (f1 == f2)
+			{
+				ans[p++] = i;
+				for (j = i + 1; j < len; j++)
+				{
+					if (j + 2 >= len)
+					{
+						ans[p++] = len - 1;
+						break;
+					}
+					else
+					if (arr[j + 1] / arr[j] != arr[j + 2] / arr[j + 1])
+					{
+						ans[p++] = j + 1;
+						break;
+					}
+				}
+				break;
+			}
+
+		}
+
+		return ans;
+	}
 	return NULL;
 }
